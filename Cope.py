@@ -46,6 +46,10 @@ def runCopland(candidates, ballots):
             if (ci > cj):
                 candidates[i][1] += 1
             else:
+               if(ci == cj):
+                  candidates[i][1] += .5
+                  candidates[j][1] += .5
+               else:
                 candidates[j][1] += 1
             j+=1
         i+=1
@@ -58,14 +62,15 @@ def getWinner(candidates):
     for (c, score) in candidates:
         if (score > curmax):
             tie = False
+            tiewinner = ""
             curmax = score
             curwinner = c
         else:
             if score == curmax:
                 tie = True
-                tiewinner = c
+                tiewinner += " and " +c
     if(tie):
-        return "There was a tie between "+curwinner +" and "+tiewinner+" they both won "+ str(curmax)+ " contests, your problem now I'm afraid"
+        return "There was a tie between "+curwinner +tiewinner+" they won "+ str(curmax)+ " contests, your problem now I'm afraid"
     else:
         return curwinner+" is the winner"
 
